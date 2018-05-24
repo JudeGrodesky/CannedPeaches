@@ -11,7 +11,7 @@ void setup() {
 
 void draw() { 
   background(0); 
-  for (int i = 0; i < 35; i++){
-    arr.get(i).move(); 
+  for (SingleBall ball : arr){
+    ball.move(); 
   }
 } 

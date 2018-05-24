@@ -1,43 +1,67 @@
 class SingleBall { 
-  float xCor; 
-  float yCor;
-  float xSpeed; 
-  float ySpeed; 
+  final static int MOVING = 0;
+  final static int GROWING = 1;
+  final static int SHRINKING = 2;
+  final static int DEAD = 3;
+  final float CHANGE_FACTOR = .25;
+  final float MAX_RADIUS = 50;
+
+  float x; 
+  float y;
+  float dx; 
+  float dy; 
+  float rad;
   color c; 
+  int state;
   
   SingleBall() { 
-    xCor = random(500); 
-    yCor = random(500); 
+    x = random(500); 
+    y = random(500); 
+    dx = random(-5,5); 
+    dy = random(-5,5); 
+    rad = 10;
     c = color(random(256), random(256), random(256) ); 
-    xSpeed = random(-20,20); 
-    ySpeed = random(-20,20); 
   } 
-  
+  SingleBall(float cx, float cy, float cdx, float cdy, float crad) {
+    x = cx;
+    y = cy;
+    dx = cdx;
+    dy = cdy;
+    rad = crad;
+    c = color(random(256), random(256), random(256) ); 
+  }
   void move() { 
-    if (xCor + xSpeed > 600 ) { 
-      xCor = 600; 
-      xSpeed = xSpeed * -1;
+    //left wall, turn around
+    if (x + dx > 600 - rad ) { 
+      x = 600 - rad; 
+      dx = dx * -1;
     } 
-    else if (xCor + xSpeed < 0 ) { 
-      xCor = 0; 
-      xSpeed = xSpeed * -1;
+    //right wall, turn around
+    else if (x + dx < rad ) { 
+      x = rad; 
+      dx = dx * -1;
     } 
+    //else move
     else { 
-      xCor += xSpeed;
+      x += dx;
     } 
-    if (yCor + ySpeed > 600 ) { 
-      yCor = 600;
-      ySpeed = ySpeed * -1;
+    //top wall, turn around
+    if (y + dy > 600 - rad ) { 
+      y = 600 - rad;
+      dy = dy * -1;
     } 
-    else if (yCor + ySpeed < 0 ) { 
-      yCor = 0; 
-      ySpeed = ySpeed * -1;
+    //bottom wall, turn around
+    else if (y + dy < rad ) { 
+      y = rad; 
+      dy = dy * -1;
     } 
+    //else move
     else { 
-      yCor += ySpeed;
+      y += dy;
     } 
-    yCor = yCor + ySpeed; 
-    ellipse(xCor, yCor, 50, 50); 
+    y = y + dy;
+    
+    ellipse(x, y, rad * 2, rad * 2); //update the image of the ball
     fill(c); 
   } 
     
