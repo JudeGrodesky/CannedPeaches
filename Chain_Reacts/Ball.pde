@@ -23,12 +23,13 @@ class SingleBall {
     c = color(random(256), random(256), random(256) );
     state = MOVING;
   } 
-  SingleBall(float cx, float cy, float cdx, float cdy, float crad) {
+  SingleBall(float cx, float cy, int cstate) {
     x = cx;
     y = cy;
-    dx = cdx;
-    dy = cdy;
-    rad = crad;
+    dx = 0;
+    dy = 0;
+    rad = 10;
+    state = cstate;
     c = color(random(256), random(256), random(256) );
   }
   void move() { 
