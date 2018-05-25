@@ -13,14 +13,15 @@ class SingleBall {
   float rad;
   color c; 
   int state;
-  
+
   SingleBall() { 
     x = random(500); 
     y = random(500); 
-    dx = random(-5,5); 
-    dy = random(-5,5); 
+    dx = random(-5, 5); 
+    dy = random(-5, 5); 
     rad = 10;
-    c = color(random(256), random(256), random(256) ); 
+    c = color(random(256), random(256), random(256) );
+    state = MOVING;
   } 
   SingleBall(float cx, float cy, float cdx, float cdy, float crad) {
     x = cx;
@@ -28,7 +29,7 @@ class SingleBall {
     dx = cdx;
     dy = cdy;
     rad = crad;
-    c = color(random(256), random(256), random(256) ); 
+    c = color(random(256), random(256), random(256) );
   }
   void move() { 
     //left wall, turn around
@@ -60,11 +61,22 @@ class SingleBall {
       y += dy;
     } 
     y = y + dy;
-    
+
     ellipse(x, y, rad * 2, rad * 2); //update the image of the ball
-    fill(c); 
-  } 
-    
-    
-  
+    fill(c);
+  }
+  void grow() {
+    if (rad < MAX_RADIUS) {
+      rad+=CHANGE_FACTOR;
+    } else {
+      state=SHRINKING;
+    }
+  }
+  void shrink() {
+    if (rad > 0) {
+       rad-=CHANGE_FACTOR; 
+    } else {
+       state=DEAD; 
+    }
+  }
 } 
