@@ -1,11 +1,11 @@
 
-ArrayList<SingleBall> arr = new ArrayList<SingleBall>();
+SingleBall[] arr = new SingleBall[35];
 SingleBall a;
 
 void setup() { 
   size(600,600);
   for (int i =0; i < 35; i++){
-    arr.add( new SingleBall() );
+    arr[i] = new SingleBall();
   }
 } 
 
