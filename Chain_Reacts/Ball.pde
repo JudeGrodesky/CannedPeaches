@@ -32,6 +32,19 @@ class SingleBall {
     state = cstate;
     c = color(random(256), random(256), random(256) );
   }
+
+  void action() {
+    if (state == MOVING ) { 
+      move();
+    } else if ( state == GROWING) { 
+      grow();
+    } else if ( state == SHRINKING ) {
+      shrink();
+    }
+    ellipse(x, y, rad * 2, rad * 2); //update the image of the ball
+    fill(c);
+  } 
+
   void move() { 
     //left wall, turn around
     if (x + dx > 600 - rad ) { 
@@ -62,22 +75,33 @@ class SingleBall {
       y += dy;
     } 
     y = y + dy;
-
-    ellipse(x, y, rad * 2, rad * 2); //update the image of the ball
-    fill(c);
+    
+    collide();
   }
+
   void grow() {
     if (rad < MAX_RADIUS) {
-      rad+=CHANGE_FACTOR;
+      rad += CHANGE_FACTOR;
     } else {
-      state=SHRINKING;
+      state = SHRINKING;
     }
   }
+
   void shrink() {
     if (rad > 0) {
-       rad-=CHANGE_FACTOR; 
+      rad-=CHANGE_FACTOR;
     } else {
-       state=DEAD; 
+      state=DEAD;
+    }
+  }
+  
+  void collide() { 
+    for ( SingleBall circle : arr ) { 
+      if ( circle.state == GROWING || circle.state == SHRINKING ) { 
+        if ( abs(circle.x - x ) <= circle.rad && abs(circle.y - y) <= circle.rad ) { 
+          state = GROWING;
+        } 
+      }
     }
   }
 } 
