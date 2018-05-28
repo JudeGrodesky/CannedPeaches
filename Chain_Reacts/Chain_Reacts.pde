@@ -12,7 +12,7 @@ void setup() {
 }
 
 void mouseClicked() {
-  arr.add(new SingleBall(mouseX, mouseY, 1)); //1 is the value for GROWING
+  arr.add(new SingleBall(mouseX, mouseY, GROWING));
 }
 
 
